@@ -21,6 +21,7 @@ const handler = NextAuth({
       return session;
     },
     async signIn({ profile }) {
+      e.preventDefault()
       try {
         await connectToDB();
         const userExists = await User.findOne({
