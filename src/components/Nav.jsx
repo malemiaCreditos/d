@@ -9,10 +9,13 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-  Button,
 } from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input} from "@nextui-org/react";
+import {MailIcon} from './MailIcon.jsx';
+import {LockIcon} from './LockIcon.jsx';
 const emailAutorizados = ["coutinhocoutinholucas@gmail.com"];
 export default function Nav() {
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const { data: session } = useSession();
   const router = useRouter();
   const [providers, setProviders] = useState(null);
@@ -85,50 +88,73 @@ export default function Nav() {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
-            {session?.user ? (
-              <div className="flex gap-3 md:gap-5">
-                <div className="bg-black rounded-full p-1">
-                  <button
-                    type={"button"}
-                    onClick={sair}
-                    className="outline_btn"
-                  >
-                    <div className="px-2">Sign Out</div>
-                  </button>
-                </div>
-
-                <Link href={"/profile"}>
-                  <Image
-                    className="rounded-full"
-                    alt="Profilo Pic"
-                    src={session?.user.image}
-                    width={40}
-                    height={40}
-                  />
-                </Link>
-              </div>
-            ) : (
-              <>
-                {providers &&
-                  Object.values(providers).map((provider) => (
-                    <div
-                      key={provider.id}
+          <div
                       className="bg-orange-600 rounded-full p-1"
                     >
                       <button
                         type="button"
-                        key={provider.name}
-                        onClick={() => signIn(provider.id)}
+                        onClick={onOpen}
                       >
                         <div className="px-2">Sign In</div>
                       </button>
                     </div>
-                  ))}
-              </>
-            )}
           </NavbarItem>
         </NavbarContent>
       </Navbar>
+      <Modal 
+        isOpen={isOpen} 
+        onOpenChange={onOpenChange}
+        placement="top-center"
+        className="bg-orange-900"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Log in</ModalHeader>
+              <ModalBody>
+                <Input
+                  autoFocus
+                  endContent={
+                    <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                  }
+                  label="Email"
+                  placeholder="Enter your email"
+                  variant="bordered"
+                />
+                <Input
+                  endContent={
+                    <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                  }
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
+                  variant="bordered"
+                />
+                <div className="flex py-2 px-1 justify-between">
+                  <Checkbox
+                    classNames={{
+                      label: "text-small",
+                    }}
+                  >
+                    Remember me
+                  </Checkbox>
+                  <Link color="primary" href="#" size="sm">
+                    Forgot password?
+                  </Link>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="flat" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Sign in
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 }
