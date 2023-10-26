@@ -1,0 +1,13 @@
+<TableColumn key="name">Data Empréstimo</TableColumn>
+        <TableColumn key="height">Nome Cliente</TableColumn>
+        <TableColumn key="mass">Empréstimo</TableColumn>
+        <TableColumn key="hair_color">Juros(%)</TableColumn>
+        <TableColumn key="birth_year">Juros(Mt)</TableColumn>
+        <TableColumn key="birth_year">Dívida Total</TableColumn>
+        <TableColumn key="birth_year">Multa % Dia</TableColumn>
+        <TableColumn key="birth_year">Parcelas</TableColumn>
+        <TableColumn key="birth_year">P. Quitadas</TableColumn>
+        <TableColumn key="birth_year">Rec. Amort</TableColumn>
+        <TableColumn key="birth_year">Rec. Juros</TableColumn>
+        <TableColumn key="birth_year">Atrasado</TableColumn>
+        <TableColumn key="birth_year">Dívida Actual</TableColumn>
